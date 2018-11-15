@@ -12,7 +12,8 @@ exports.sendErrorWithMessage = function (res, err, flagStatus) {
   const response = {
     message: err,
     status: 400,
-    data: {},
+    data: {}
+    
   };
   res.send(JSON.stringify(response));
 };

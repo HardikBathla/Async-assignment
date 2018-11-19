@@ -10,7 +10,7 @@ const dbName = 'assignment';
 async function dbConnection(){
 try{
   MongoClient.connect(url, function (err, client) {
-    console.log("Connected mongo");
+    // console.log("Connected mongo");
 
             global.db=client.db(dbName);
 
@@ -18,7 +18,8 @@ try{
 });
 }
 catch(err){
-  console.log(err);
+  throw err;
+  // console.log(err);
 }
 }
 dbConnection();

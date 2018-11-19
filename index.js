@@ -1,6 +1,6 @@
 const dbase= require('./database/mongodb.js');
-var app = require('express')();
-var server = require('http').Server(app);
+const app = require('express')();
+const server = require('http').Server(app);
 let functions=require('./function.js');
 
 server.listen(3002);

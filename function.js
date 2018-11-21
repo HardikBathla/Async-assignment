@@ -93,22 +93,34 @@ exports.asyncAwaitFunction = async function (req, res) {
   return res.send(error);
 }
 }
-exports.asyncSetImmediateFunction = async function (req, res) {
-
-   setImmediate(function A() {
-  setImmediate(function B() {
-    console.log("1");
-    setImmediate(function D() { console.log("2"); });
-    setImmediate(function E() { console.log("3"); });
-  });
-  setImmediate(function C() {
-    console.log("4");
-    setImmediate(function F() { console.log("5"); });
-    setImmediate(function G() { console.log("6"); });
-  });
-});
-res.send("API SUCCESSFULLY IMPLEMENTED !! Check Console")
-}
+/*
+setimmedate
+The main advantage to using setImmediate() over setTimeout() is setImmediate()
+will always be executed before any timers if scheduled within an I/O cycle,
+independently of how many timers are present.
+Timers cannot guaranteed when its callback gets executed even though the timer expiration period is zero,
+immediates queue is guaranteed to be processed immediately after the I/O phase of the event loop.
+*/
+exports.setimmedate = async function (req,res) {
+  let returnedData = {};
+    db.collection('trackHistory').find().toArray((error, result) => {
+      if (error) {
+        return error;
+      }
+      else {
+    setTimeout(() => {
+      console.log('check timeout');
+    }, 0);
+    setImmediate(() => {
+      console.log('immediate function');
+    });
+       returnedData.data = result;
+       returnedData.message = "API SUCCESSFULLY IMPLEMENTED";
+       returnedData.status = 200;
+      return res.send(JSON.stringify(returnedData));
+        }
+    })
+  }
 exports.promiseFunction = async function (req, res) {
   let variable = await new Promise((resolve, reject) => {
     db.collection('deviceToken').find().sort({userId:-1}).toArray(function (error, result){
